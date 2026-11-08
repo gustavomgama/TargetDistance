@@ -63,6 +63,11 @@ frame:SetScript("OnUpdate", function(self, dt)
         local n = 0
         for _ in pairs(tracked) do n = n + 1 end
         print("|cff00ff00TD|r " .. table.concat(parts, " ") .. " nameplates=" .. n)
+        if TargetDistanceDB then
+            TargetDistanceDB.log = TargetDistanceDB.log or {}
+            table.insert(TargetDistanceDB.log, date("%H:%M:%S") .. " " .. table.concat(parts, " ") .. " nameplates=" .. n)
+            if #TargetDistanceDB.log > 200 then table.remove(TargetDistanceDB.log, 1) end
+        end
     end
 end)SLASH_TARGETDISTANCE1 = "/td"
 SlashCmdList["TARGETDISTANCE"] = function(msg)
@@ -70,7 +75,16 @@ SlashCmdList["TARGETDISTANCE"] = function(msg)
     if msg == "debug" then
         ns.debug = not ns.debug
         print("|cff00ff00TargetDistance|r debug " .. (ns.debug and "ON" or "OFF"))
+    elseif msg == "log" then
+        if TargetDistanceDB and TargetDistanceDB.log then
+            for _, line in ipairs(TargetDistanceDB.log) do print(line) end
+        else
+            print("no log")
+        end
+    elseif msg == "clearlog" then
+        if TargetDistanceDB then TargetDistanceDB.log = {} end
+        print("log cleared")
     else
-        print("|cff00ff00TargetDistance|r commands: debug")
+        print("|cff00ff00TargetDistance|r commands: debug, log, clearlog")
     end
 end
