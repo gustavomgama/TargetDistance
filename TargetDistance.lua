@@ -2,6 +2,7 @@ local addonName, ns = ...
 
 ns.data = ns.data or {}
 ns.data.distances = ns.data.distances or {}
+ns.debug = false
 
 local tracked = {}  -- unitToken -> true
 
@@ -55,4 +56,21 @@ frame:SetScript("OnUpdate", function(self, dt)
     for unit in pairs(tracked) do
         FetchUnit(unit)
     end
-end)
+    if ns.debug then
+        local parts = {}
+        if ns.data.distances["target"] then table.insert(parts, "target=" .. math.floor(ns.data.distances["target"] + 0.5)) end
+        if ns.data.distances["mouseover"] then table.insert(parts, "mouseover=" .. math.floor(ns.data.distances["mouseover"] + 0.5)) end
+        local n = 0
+        for _ in pairs(tracked) do n = n + 1 end
+        print("|cff00ff00TD|r " .. table.concat(parts, " ") .. " nameplates=" .. n)
+    end
+end)SLASH_TARGETDISTANCE1 = "/td"
+SlashCmdList["TARGETDISTANCE"] = function(msg)
+    msg = (msg or ""):match("^%s*(.-)%s*$"):lower()
+    if msg == "debug" then
+        ns.debug = not ns.debug
+        print("|cff00ff00TargetDistance|r debug " .. (ns.debug and "ON" or "OFF"))
+    else
+        print("|cff00ff00TargetDistance|r commands: debug")
+    end
+end
