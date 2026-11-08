@@ -4,6 +4,14 @@ ns.data = ns.data or {}
 ns.data.distances = ns.data.distances or {}
 ns.debug = false
 
+-- status frame (always-visible fetch confirmation)
+local statusFrame = CreateFrame("Frame", nil, UIParent)
+statusFrame:SetSize(160, 16)
+statusFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 10, -10)
+local statusText = statusFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+statusText:SetPoint("LEFT", statusFrame, "LEFT", 0, 0)
+statusText:SetTextColor(0, 1, 0)
+
 local tracked = {}  -- unitToken -> true
 
 local function FetchUnit(unit)
@@ -69,6 +77,11 @@ frame:SetScript("OnUpdate", function(self, dt)
             if #TargetDistanceDB.log > 200 then table.remove(TargetDistanceDB.log, 1) end
         end
     end
+    -- update status frame
+    local sn = 0
+    for _ in pairs(tracked) do sn = sn + 1 end
+    local sd = ns.data.distances["target"]
+    statusText:SetText("TD fetch: " .. sn .. " np" .. (sd and (" tgt=" .. math.floor(sd + 0.5)) or ""))
 end)SLASH_TARGETDISTANCE1 = "/td"
 SlashCmdList["TARGETDISTANCE"] = function(msg)
     msg = (msg or ""):match("^%s*(.-)%s*$"):lower()
