@@ -62,7 +62,19 @@ frame:SetScript("OnUpdate", function(self, dt)
     end
     local sq, checked = UnitDistanceSquared("target")
     if not checked then
-        if lastText ~= "" then text:SetText("") ; lastText = "" end
+        local coarse = nil
+        if CheckInteractDistance("target", 3) then coarse = "<7"
+        elseif CheckInteractDistance("target", 2) then coarse = "7-8"
+        elseif CheckInteractDistance("target", 4) then coarse = "8-28"
+        elseif UnitExists("target") then coarse = ">28"
+        end
+        if coarse and coarse ~= lastText then
+            text:SetText(coarse)
+            lastText = coarse
+        elseif not coarse and lastText ~= "" then
+            text:SetText("")
+            lastText = ""
+        end
         return
     end
     local d = math.sqrt(sq)
