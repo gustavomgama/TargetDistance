@@ -86,6 +86,12 @@ frame:SetScript("OnUpdate", function(self, dt)
 end)
 
 frame:RegisterEvent("ADDON_LOADED")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:HookScript("OnEvent", function(self, event)
+    if event == "PLAYER_LOGIN" then
+        print("|cff00ff00TargetDistance|r loaded")
+    end
+end)
 frame:SetScript("OnEvent", function(self, event, name)
     if event == "ADDON_LOADED" and name == addonName then
         TargetDistanceDB = TargetDistanceDB or {}
