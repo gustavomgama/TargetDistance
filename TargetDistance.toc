@@ -3,6 +3,7 @@
 ## Notes: Displays real-time distance to your target in 5-yard intervals.
 ## Author: dev
 ## Version: 1.0.0
+## X-Curse-Project-ID: 1791034
 ## SavedVariables: TargetDistanceDB
 ## AddonCompartmentFunc: TargetDistance_CompartmentClick
 ## AddonCompartmentFuncOnEnter: TargetDistance_CompartmentEnter
