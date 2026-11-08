@@ -53,20 +53,7 @@ frame:SetScript("OnUpdate", function(self, dt)
     end
     local sq, checked = UnitDistanceSquared("target")
     if not checked then
-        local coarse = ">28"
-        if not InCombatLockdown() then
-            local ok, r3 = pcall(CheckInteractDistance, "target", 3)
-            if ok and r3 then coarse = "<7"
-            else
-                local ok2, r2 = pcall(CheckInteractDistance, "target", 2)
-                if ok2 and r2 then coarse = "7-8"
-                else
-                    local ok4, r4 = pcall(CheckInteractDistance, "target", 4)
-                    if ok4 and r4 then coarse = "8-28" end
-                end
-            end
-        end
-        text:SetText(coarse)
+        text:SetText("?")
         return
     end
     text:SetText(math.floor(math.sqrt(sq) + 0.5))
