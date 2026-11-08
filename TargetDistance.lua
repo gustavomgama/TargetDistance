@@ -62,18 +62,22 @@ frame:SetScript("OnUpdate", function(self, dt)
     end
     local sq, checked = UnitDistanceSquared("target")
     if not checked then
+        -- keep last value briefly instead of blanking; try coarse fallback if available
         local coarse = nil
-        if CheckInteractDistance("target", 3) then coarse = "<7"
-        elseif CheckInteractDistance("target", 2) then coarse = "7-8"
-        elseif CheckInteractDistance("target", 4) then coarse = "8-28"
-        elseif UnitExists("target") then coarse = ">28"
+        if not InCombatLockdown() then
+            if CheckInteractDistance("target", 3) then coarse = "<7"
+            elseif CheckInteractDistance("target", 2) then coarse = "7-8"
+            elseif CheckInteractDistance("target", 4) then coarse = "8-28"
+            end
         end
         if coarse and coarse ~= lastText then
             text:SetText(coarse)
             lastText = coarse
-        elseif not coarse and lastText ~= "" then
-            text:SetText("")
-            lastText = ""
+        end
+        -- if no coarse and no last value, show >28 for existing target
+        if not coarse and lastText == "" and UnitExists("target") then
+            text:SetText(">28")
+            lastText = ">28"
         end
         return
     end
