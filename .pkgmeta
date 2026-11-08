@@ -1,0 +1,6 @@
+package-as: TargetDistance
+enable-nolib-creation: no
+ignore:
+  - .git
+  - .opencode
+  - .github
