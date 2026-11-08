@@ -31,4 +31,6 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          CF_PROJECT_ID: 1791034
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+
