@@ -19,7 +19,20 @@ text:SetText("")
 frame.locked = true
 
 frame:RegisterEvent("ADDON_LOADED")
+frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 frame:SetScript("OnEvent", function(self, event, name)
+    if event == "PLAYER_TARGET_CHANGED" then
+        if UnitExists("target") then
+            local tname = UnitName("target")
+            if tname and tname ~= ns.lastTargetName then
+                ns.lastTargetName = tname
+                print("|cff00ff00TargetDistance|r target: " .. tname)
+            end
+        else
+            ns.lastTargetName = nil
+        end
+        return
+    end
     if event == "ADDON_LOADED" and name == addonName then
         TargetDistanceDB = TargetDistanceDB or {}
         if TargetDistanceDB.point then
@@ -36,7 +49,7 @@ frame:SetScript("OnEvent", function(self, event, name)
         print("|cff00ff00TargetDistance|r loaded - /td lock|unlock|reset")
     end
 end)
-frame:RegisterEvent("PLAYER_LOGIN")
+frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 
 local elapsed = 0
 frame:SetScript("OnUpdate", function(self, dt)
