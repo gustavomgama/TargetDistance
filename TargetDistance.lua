@@ -8,9 +8,13 @@ ns.debug = false
 local statusFrame = CreateFrame("Frame", nil, UIParent)
 statusFrame:SetSize(160, 16)
 statusFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 10, -10)
+local bg = statusFrame:CreateTexture(nil, "BACKGROUND")
+bg:SetAllPoints(statusFrame)
+bg:SetColorTexture(0, 0, 0, 0.5)
 local statusText = statusFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 statusText:SetPoint("LEFT", statusFrame, "LEFT", 0, 0)
 statusText:SetTextColor(0, 1, 0)
+statusText:SetText("TD fetch: 0")
 
 local tracked = {}  -- unitToken -> true
 
