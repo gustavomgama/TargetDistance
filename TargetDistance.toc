@@ -1,0 +1,9 @@
+## Interface: 16001
+## Title: TargetDistance
+## Notes: Shows distance to your target.
+## Author: dev
+## Version: 1.0.0
+## SavedVariables: TargetDistanceDB
+## X-Curse-Project-ID: 1791034
+
+TargetDistance.lua
