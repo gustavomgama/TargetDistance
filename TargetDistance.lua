@@ -87,12 +87,11 @@ end)
 
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGIN")
-frame:HookScript("OnEvent", function(self, event)
+frame:SetScript("OnEvent", function(self, event, name)
     if event == "PLAYER_LOGIN" then
         print("|cff00ff00TargetDistance|r v1.0 loaded - /td lock|unlock|reset|pos")
+        return
     end
-end)
-frame:SetScript("OnEvent", function(self, event, name)
     if event == "ADDON_LOADED" and name == addonName then
         TargetDistanceDB = TargetDistanceDB or {}
         local db = TargetDistanceDB
