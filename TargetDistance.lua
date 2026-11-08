@@ -89,7 +89,7 @@ frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:HookScript("OnEvent", function(self, event)
     if event == "PLAYER_LOGIN" then
-        print("|cff00ff00TargetDistance|r loaded")
+        print("|cff00ff00TargetDistance|r v1.0 loaded - /td lock|unlock|reset|pos")
     end
 end)
 frame:SetScript("OnEvent", function(self, event, name)
